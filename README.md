@@ -1,10 +1,8 @@
 # Verified Giveaways
 
-This is an open-source community project for creating transparent NFT giveaways, to be owned and governed by the community via SNS when available. All of the following text represents the initial concept and is subject to change based on community feedback and participation.
+This is an open-source community project for creating fair and transparent NFT giveaways, to be owned and governed by the community via SNS on the Internet Computer when available. All of the following text represents the initial concept and is subject to change based on community feedback and participation.
 
 If you are a member of the Internet Computer community in any capacity, your ideas and skills can help this project become a reality. All are welcome who want to contribute, and then own and govern this project. Community roles may include: developers, artists, designers, project managers, legal experts, marketers, NFT enthusiasts, and more.
-
-My personal involvement will include direction and development as needed unless more capable community members choose to take on the challenge. This project may be forked or replaced. My primary goal is to build or encourage others to build an app that guarantees transparent and honest NFT giveaways.
 
 ## Initial Project Goals
 
@@ -21,12 +19,12 @@ My personal involvement will include direction and development as needed unless 
 
 ## Technologies
 
-The intention is to develop the project based on community ideas within technical limitations and the following restrictions:
+The intention is to develop the project based on community ideas within the limitations of the applied technologies and the skillsets of the participating community. The following assumptions also apply:
 
-- The entire application will be hosted on the Internet Computer.
+- The entire application (frontend and backend) will be hosted on the Internet Computer.
 - Users will login with the Internet Identity service.
-- The frontend will be implemented with ReactJS or other frontend JavaScript framework (decided by participating devs).
-- The backend will be implemented with Motoko or Rust (decided by participating devs).
+- The frontend will be implemented with ReactJS.
+- The backend will be implemented with Motoko. Rust may also be used in specific canisters for requirements that can not be handled with Motoko.
 - The project will not attempt to integrate with services or applications external to the Internet Computer blockchain to verify participant tasks.
 - Content moderation will be done via ModClub or another means decided by the community.
 
@@ -41,13 +39,12 @@ This project can start with basic functionality and expand later to include task
 ## Potential Features in Future Versions
 
 - NFTs (and other tokens) in a giveaway can be transferred to a smart contract to hold in escrow, only to be released to the randomly selected winners.
-  - This can be implemented for multiple blockchains (Internet Computer, Ethereum, etc.).
 - NFT minting for one-of-ones or collections with randomly generated traits.
 - VR NFT gallery to view NFTs in upcoming giveaways.
 
 ## Community Discussion Points
 
-These are discussion points from the initial Twitter thread. Future discussions will be moved to a new Discord server created and managed by Twitter acount @finn1ous.
+These are discussion points from the initial Twitter thread. Note that all current discussions take place in the Discord server (https://discord.gg/xpeFvAbn3k) created and managed by Finn ∞#0001 and administered by Psycho-Gamen#0282 and Motokoder#7081.
 
 - Project name suggestion: "Verified Giveaway". (Twitter: @RG1PsychoGamen)
 - Wallets should be verified to prevent NFTs from being sent to a bad address. (Twitter: @Motokoder)
