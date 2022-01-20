@@ -42,6 +42,8 @@ This project can start with basic functionality and expand later to include task
 
 - NFTs (and other tokens) in a giveaway can be transferred to a smart contract to hold in escrow, only to be released to the randomly selected winners.
   - This can be implemented for multiple blockchains (Internet Computer, Ethereum, etc.).
+- NFT minting for one-of-ones or collections with randomly generated traits.
+- VR NFT gallery to view NFTs in upcoming giveaways.
 
 ## Community Discussion Points
 
