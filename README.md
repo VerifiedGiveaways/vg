@@ -46,7 +46,7 @@ This project can start with basic functionality and expand later to include task
 
 These are discussion points from the initial Twitter thread. Note that all current discussions take place in the Discord server (https://discord.gg/xpeFvAbn3k) created and managed by Finn ∞#0001 and administered by Psycho-Gamen#0282 and Motokoder#7081.
 
-- Project name suggestion: "Verified Giveaway". (Twitter: @RG1PsychoGamen)
+- Project name suggestion: "Verified Giveaways". (Twitter: @RG1PsychoGamen)
 - Wallets should be verified to prevent NFTs from being sent to a bad address. (Twitter: @Motokoder)
 - Support for wallet handles/domains. (Twitter: [@RG1PsychoGamen](https://twitter.com/RG1PsychoGamen/status/1481464287600197634))
 - For randomness, participants generate a random number, then the giveaway host generates a random number. The matching number wins. (Twitter: [@47atop](https://twitter.com/47atop/status/1481496566380834821?t=Z9QyFkvn1dFVIhqEgN96sg&s=19))
