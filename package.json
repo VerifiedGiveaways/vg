@@ -20,18 +20,21 @@
     "last 2 edge version"
   ],
   "dependencies": {
+    "@identity-labs/react-ic-ii-auth": "^0.0.15",
+    "@types/react-dom": "^17.0.11",
+    "dotenv": "^16.0.0",
+    "dotenv-webpack": "^7.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-modal": "^3.14.4"
+    "react-modal": "^3.14.4",
+    "react-router": "^6.2.1",
+    "react-router-dom": "^6.2.1"
   },
   "devDependencies": {
-    "@dfinity/agent": "0.10.1",
-    "@dfinity/candid": "0.10.1",
-    "@dfinity/principal": "0.10.1",
     "@types/node": "^12.20.7",
     "@types/react": "^17.0.3",
-    "@types/react-dom": "^17.0.3",
     "@types/react-modal": "^3.13.1",
+    "@types/react-router-dom": "^5.3.3",
     "assert": "2.0.0",
     "buffer": "6.0.3",
     "copy-webpack-plugin": "^9.0.1",

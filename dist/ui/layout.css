@@ -23,10 +23,13 @@ html, body {
     border-bottom: 1px solid black;
     background-color: steelblue;
     color: whitesmoke;
-    text-align: center;
+    line-height: 30px;
+    vertical-align: middle;
+    padding: 0 10px;
   }
 
   .layout header h1 {
+    font-size: 1.5em;
     margin: 0;
   }
   
@@ -49,11 +52,14 @@ html, body {
     order: 0;
     display: flex;
     flex-direction: column;
-    border-top:  1px solid black;
+    border-top: 1px solid black;
   }
   
   /* .layout-aside { } */
-  /* .layout footer { } */
+  .layout footer {
+    border-top: 1px solid black;
+    font-size: 1em;
+  }
 
   @media (min-width: 500px) {
     .layout header {

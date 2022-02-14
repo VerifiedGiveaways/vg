@@ -20,5 +20,6 @@
       "isolatedModules": true,
       "noEmit": false
     },    
-    "include": ["src/ui/src/**/*"]
+    "include": ["src/ui/src/**/*"],
+    "exclude": [".dfx", "node_modules"]
 }
