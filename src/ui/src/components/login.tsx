@@ -10,9 +10,13 @@ const AuthButton = () => {
     console.log('>> initialize your actors with', { identity });
 
     return (
-        <button onClick={isAuthenticated ? signout : authenticate}>
-            {isAuthenticated ? 'Logout' : 'Login with Internet Identity'}
-        </button>
+        <div>
+            <div>{ identity?.getPrincipal().toString() || "Unathenticated" }</div>
+            <br/>
+            <button onClick={isAuthenticated ? signout : authenticate}>
+                {isAuthenticated ? 'Logout' : 'Login with Internet Identity'}
+            </button>
+        </div>
     );
 };
 
