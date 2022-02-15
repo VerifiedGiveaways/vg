@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import * as Api from '../api';
 import { Outlet, Link } from "react-router-dom";
+import { InternetIdentityProvider } from '@identity-labs/react-ic-ii-auth';
 
 export default function App () {
     const [dateTime, setDateTime] = useState<string>("");
@@ -16,7 +17,16 @@ export default function App () {
     }, []);
 
     return (           
-        <>
+        <InternetIdentityProvider
+            authClientOptions={{
+                onSuccess: (identity) => console.log(
+                    "Successful Login", {identity}
+                ),
+                // NOTE: Overwrite identityProvider in dev mode
+                // defaults to "https://identity.ic0.app/#authorize"
+                identityProvider: `http://${process.env.II_CANISTER_ID}.localhost:8000/#authorize`
+            }}
+        >
             <header>
                 <h1>Verified Giveaways</h1>
             </header>
@@ -37,6 +47,6 @@ export default function App () {
             <footer>
                 <div style={{textAlign: "center"}}>{dateTime}</div>
             </footer>
-        </>
+        </InternetIdentityProvider>
     );
 };
