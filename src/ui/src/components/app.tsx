@@ -22,9 +22,7 @@ export default function App () {
                 onSuccess: (identity) => console.log(
                     "Successful Login", {identity}
                 ),
-                // NOTE: Overwrite identityProvider in dev mode
-                // defaults to "https://identity.ic0.app/#authorize"
-                identityProvider: `http://${process.env.II_CANISTER_ID}.localhost:8000/#authorize`
+                identityProvider: `${process.env.II_PROVIDER_URL}`
             }}
         >
             <header>

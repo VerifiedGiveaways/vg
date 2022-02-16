@@ -90,7 +90,7 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-			path: `./.env.${isDevelopment ? "development" : "production"}`
+			path: `./.env${isDevelopment ? ".local" : ""}`
 		}),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, asset_entry),
