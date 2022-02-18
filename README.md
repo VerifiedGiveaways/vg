@@ -7,14 +7,43 @@ A decentralized application on the Internet Computer for hosting and participati
 - __Hosting__: Internet Computer
 
 
-# Developer Setup (macOS or Ubuntu - does not work on Windows)
+# Developer Setup
 
-The setup instructions may seem long, but the goal is to make them complete. They should evolve with feedback.
+These setup instructions may seem long, but the goal is to make them complete. They should evolve with feedback.
+
+### macOS and Ubuntu Linux
+
+These instructions are for macOS and Ubuntu Linux (not running in a virtual machine).
+
+### Windows
+
+Although Windows can install the Linux subsystem, there are complications with permissions between code editors and browsers running in Windows and the libraries installed via the Linux subsystem. This approach is not recommended.
+
+If you have a Windows machine, you can install Ubuntu on that machine and everything should work fine. (Vite/esbuild have issues on x86-64 processors, so we use Webpack instead.)
+
+When testing Internet Identity on an Ubuntu virtual machine, it did not recognize the inserted YubiKey for authentication. Biometric devices may work, but have not been tested. If you run through the setup instructions for a virtual machine, you may waste your time.
 
 ### Prerequisites
 - Git
 - Node 16 (Node 17 causes compile errors)
 - A code editor such as Visual Studio Code
+- A hardware device for authenticating with Internet Identity
+
+### Internet Identity Authentication Devices
+
+If you are not familiar with Internet Identity, please [learn about it here first](https://smartcontracts.org/docs/ic-identity-guide/auth-how-to.html). (Note that the article refers to the mainnet canister where the Internet Identity project is deployed. We will be deploying the same project locally and using the local URL.)
+
+Authentication is done via hardware devices, so the method of authentication differs depending on your device.
+
+If your machine does not have a biometric device, but it has a USB port, you can simply insert a [YubiKey](https://www.yubico.com/) and authenticate. If you don't know which one to buy, get "YubiKey 5 NFC". (As noted above, this may not work with a virtual machine.)
+
+Here are some examples of logging in with Internet Identity on different devices:
+
+- 2017 iMac: YubiKey
+- MacBook: The build-in fingerprint scanner or YubiKey
+- Linux: Any biometric scanner or YubiKey
+- Android: Your screen unlock password
+- Windows: "Windows Hello" (your Windows password or pin) or YubiKey
 
 -----
 
