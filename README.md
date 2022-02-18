@@ -7,7 +7,7 @@ A decentralized application on the Internet Computer for hosting and participati
 - __Hosting__: Internet Computer
 
 
-# Developer Setup (MacOs or Ubuntu - does not work on Windows)
+# Developer Setup (macOS or Ubuntu - does not work on Windows)
 
 The setup instructions may seem long, but the goal is to make them complete. They should evolve with feedback.
 
@@ -23,6 +23,11 @@ Ensure the version matches the version in the dfx.json file in the Verified Give
 DFX_VERSION=0.8.4 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
 ```
 
+👉 IMPORTANT: If you get the error "__zsh: bad CPU type in executable: dfx__" on macOS M1/M2 processors, run the following command, then try installing dfx again:
+```bash
+Softwareupdate --install-rosetta
+```
+
 ## Step 2: Setup Internet Identity on Your Local Machine
 
 The Verified Giveaways project uses Internet Identity authentication. Therefore, before you can run and test the dApp locally, you will first need to setup and run Internet Identity locally. (Note: Mainnet Internet Identities only work with the mainnet canister. They will not work when running locally in an emulated environment.)
@@ -31,9 +36,9 @@ The Verified Giveaways project uses Internet Identity authentication. Therefore,
   - https://www.rust-lang.org/tools/install
 
 - Install CMake (Also used by the Internet Identity app.)
-  - MacOS
+  - macOS
     - Download and install:
-      https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-macos-universal.dmg (More info: https://cmake.org/install/)
+      https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-macOS-universal.dmg (More info: https://cmake.org/install/)
     - Create symlinks to CMake:
       ```bash
       sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
@@ -46,7 +51,7 @@ The Verified Giveaways project uses Internet Identity authentication. Therefore,
     sudo apt-get -y install cmake-qt-gui
     ```
 
-- Clone the Internet Identity Project and navigate to the root foldder
+- Clone the Internet Identity project and navigate to the root folder
   ```bash
   git clone https://github.com/dfinity/internet-identity.git
   cd internet-identity
@@ -59,22 +64,23 @@ The Verified Giveaways project uses Internet Identity authentication. Therefore,
   ```
 
 - Start a local instance of the Internet Computer blockchain
-  (Use a separate dedicated terminal window.)
+  (Use a separate dedicated terminal tab or window in the same directory. On macOS, you can use ⌘+t to open a new tab.)
   ```bash
   dfx start --background
   ```
 
-- Important: To stop your local Internet Computer blockchain, run:
+  👉 IMPORTANT: Always run the start command from the root internet_identity directory. Leave it running while developing/testing since the _Internet Identity_ and _Verified Giveaways_ projects deploy canisters to the local blockchain and run from the code in those canisters. To stop your local Internet Computer blockchain, run:
   ```bash
   dfx stop
   ```
+  You may need to enter control+c to return to the command prompt.
 
 - Install the Internet Identity canister (on your local IC blockchain)
   ```bash
   II_ENV=development
   dfx deploy --no-wallet --argument '(null)'
   ```
-  IMPORTANT: The terminal output will show the canister Id of the Internet Identity canister. Copy this and save it. You will need it in step 3.
+  👉 IMPORTANT: The terminal output will show the canister Id of the Internet Identity canister. Copy this and save it. You will need it in step 3.
 
 ## Step 3: Setup Verified Giveaways on Your Local Machine
 
