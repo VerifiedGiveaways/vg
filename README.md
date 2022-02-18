@@ -122,17 +122,19 @@ dfx deploy --no-wallet --argument '(null)'
 👉 IMPORTANT: The terminal output will show the canister Id of the II canister. Copy this and save it. You will need it in step 3. You can also get the "internet_identity" canister Id from ./.dfx/local/canister_ids.json. (Created during deploy.)
 
 -----
+
 ## Step 3: Setup Verified Giveaways on Your Local Machine
 
-Clone the Verified Giveaways Project
+Clone the Verified Giveaways Project.
   ```bash
   git clone https://github.com/VerifiedGiveaways/vg
   ```
-Install npm packages
+
+Install npm packages.
   ```bash
   npm i
   ```
-Configuration
+
 At the root of the VG project, make a copy of the ".env" file and rename the copy to ".env.local".
 
 Update the II_PROVIDER_URL setting as follows:
@@ -151,22 +153,28 @@ Run the UI
 ```bash
 npm start
 ```
+
 Open your browser and navigate to: http://localhost:8080.
 
 -----
+
 # Local Development Workflow
+
 Always start by running a local instance of the Internet Computer blockchain from the root of your internet_identity folder and in a dedicated terminal:
   ```bash
   dfx start --background
   ```
+
 After making changes to VG canister code, run:
   ```bash
   dfx deploy
   ```
+
 When developing UI code, your changes will update in the browser when you save your files. Before making changes, run:
 ```bash
 npm start
 ```
+
 When you are finished developing, stop your local instance of the Internet Computer blockchain with:
 ```bash
 dfx stop
