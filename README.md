@@ -31,7 +31,7 @@ When testing Internet Identity on an Ubuntu virtual machine, it did not recogniz
 
 ### Internet Identity Authentication Devices
 
-If you are not familiar with Internet Identity, please [learn about it here first](https://smartcontracts.org/docs/ic-identity-guide/auth-how-to.html). (Note that the article refers to the mainnet canister where the Internet Identity project is deployed. We will be deploying the same project locally and using the local URL.)
+If you are not familiar with Internet Identity, please [learn about it here first](https://smartcontracts.org/docs/ic-identity-guide/auth-how-to.html). (Note that the article refers to the mainnet canister where the Internet Identity project is deployed. You can opt to deploy and run the Internet Identity provider locally and configure VG to authenticate with the local canister URL. However, that is not necessary.)
 
 Authentication is done via hardware devices, so the method of authentication differs depending on your device.
 
@@ -63,7 +63,16 @@ Softwareupdate --install-rosetta
 
 ## Step 2: Setup Internet Identity (II) on Your Local Machine
 
-The Verified Giveaways project uses II authentication. Therefore, before you can run and test the dApp locally, you will first need to setup and run II locally. (Note: Mainnet Internet Identities only work with the mainnet canister. They will not work when running locally in an emulated environment.)
+👉 IMPORTANT: You can skip this step entirely if you'd like and add the following configuration setting to your .env.local file:
+   ```
+   II_PROVIDER_USE_FAKE="true"
+   ```
+
+   - With that local configuration setting, a random Internet Identity will be generated within the VG project upon login, and there will be no need for an external II provider/canister.
+
+   - You may want to skip this step especially if your machine has an M1 or M2 Apple processor as the II integration may not work for those processors.
+
+The Verified Giveaways project uses II authentication. When running the dApp locally, you may authenticate with a local instance of the II provider. (Note: Mainnet Internet Identities only work with the mainnet canister. They will not work when running locally in an emulated environment.)
 
 Install Rust (Even though this project does not use Rust, the II project does.)
 
@@ -137,11 +146,16 @@ Install npm packages.
 
 At the root of the VG project, make a copy of the ".env" file and rename the copy to ".env.local".
 
-Update the II_PROVIDER_URL setting as follows:
-```console
+If you are running a local II provider, update the II_PROVIDER_URL setting as follows:
+```bash
 II_PROVIDER_URL="http://<id of your local internet identity canister>.localhost:8000/#authorize"
 ```
 Tip: If you paste the above URL in your browser, it should serve up the welcome page from the "internet_identity" canister.
+
+If you skipped the II provider setup, update the II_PROVIDER_USE_FAKE setting as follow:
+```bash
+II_PROVIDER_USE_FAKE="true"
+```
 
 Create, Build and Install Canisters
 ```bash
@@ -160,10 +174,12 @@ Open your browser and navigate to: http://localhost:8080.
 
 # Local Development Workflow
 
-Always start by running a local instance of the Internet Computer blockchain from the root of your internet_identity folder and in a dedicated terminal:
+If you are running a local II provider, always start by running a local instance of the Internet Computer blockchain from the root of your II project folder and in a dedicated terminal:
   ```bash
   dfx start --background
   ```
+
+If you skipped the II provider setup, run the above command from the root of the vg project folder in a dedicated terminal.
 
 After making changes to VG canister code, run:
   ```bash
@@ -202,3 +218,9 @@ dfx canister id <your canister name from dfx.json>
 ```
 
 You can also look in the ./.dfx/canister_ids.json file to get any canister Id.
+
+-----
+
+# Mainnet Deployment
+
+TODO
