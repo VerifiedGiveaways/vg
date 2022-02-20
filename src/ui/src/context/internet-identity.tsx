@@ -55,7 +55,12 @@ const useICIIAuth = ({
   ).toString()
 
   const createAuthClient = React.useCallback(async () => {
-    const authClient = await AuthClient.create({ identity: Ed25519KeyIdentity.generate() })
+    var authClient: React.SetStateAction<AuthClient | null>;
+    if (fakeProvider) {
+      authClient = await AuthClient.create({ identity: Ed25519KeyIdentity.generate() });
+    } else {
+      authClient = await AuthClient.create({});
+    }
     setAuthClient(authClient)
   }, [])
 
@@ -115,11 +120,10 @@ const useICIIAuth = ({
 
   const signout = React.useCallback(async () => {
     if (authClient) {
-      if (fakeProvider) {
-        setIsAuthenticated(false)
-      } else {
-        await authClient.logout()
+      if (!fakeProvider) {
+        await authClient.logout();
       }
+      setIsAuthenticated(false);
     }
   }, [authClient])
 
