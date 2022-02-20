@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import * as Api from '../api';
-import { Outlet, Link } from "react-router-dom";
-import { InternetIdentityProvider } from '@identity-labs/react-ic-ii-auth';
+import { Outlet, Link } from 'react-router-dom';
+import { InternetIdentityProvider } from '../context/internet-identity';
 
 export default function App () {
     const [dateTime, setDateTime] = useState<string>("");
@@ -22,8 +22,9 @@ export default function App () {
                 onSuccess: (identity) => console.log(
                     "Successful Login", {identity}
                 ),
-                identityProvider: `${process.env.II_PROVIDER_URL}`
+                identityProvider: `${process.env.II_PROVIDER_URL}`,
             }}
+            fakeProvider={process.env.II_PROVIDER_USE_FAKE == 'true'}
         >
             <header>
                 <h1>Verified Giveaways</h1>

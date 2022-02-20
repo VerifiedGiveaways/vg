@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useInternetIdentity } from '@identity-labs/react-ic-ii-auth';
+import { useInternetIdentity } from '../context/internet-identity';
 
 export default function Welcome() {
     const { authenticate, signout, isAuthenticated, identity } = useInternetIdentity();

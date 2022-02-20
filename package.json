@@ -20,7 +20,12 @@
     "last 2 edge version"
   ],
   "dependencies": {
-    "@identity-labs/react-ic-ii-auth": "^0.0.15",
+    "@dfinity/agent": "^0.10.2",
+    "@dfinity/auth-client": "^0.10.2",
+    "@dfinity/authentication": "^0.10.2",
+    "@dfinity/candid": "^0.10.3",
+    "@dfinity/identity": "^0.10.2",
+    "@dfinity/principal": "^0.10.2",
     "@types/react-dom": "^17.0.11",
     "dotenv": "^16.0.0",
     "dotenv-webpack": "^7.1.0",
