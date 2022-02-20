@@ -63,15 +63,6 @@ Softwareupdate --install-rosetta
 
 ## Step 2: Setup Internet Identity (II) on Your Local Machine
 
-👉 IMPORTANT: You can skip this step entirely if you'd like and add the following configuration setting to your .env.local file:
-   ```
-   II_PROVIDER_USE_FAKE="true"
-   ```
-
-   - With that local configuration setting, a random Internet Identity will be generated within the VG project upon login, and there will be no need for an external II provider/canister.
-
-   - You may want to skip this step especially if your machine has an M1 or M2 Apple processor as the II integration may not work for those processors.
-
 The Verified Giveaways project uses II authentication. When running the dApp locally, you may authenticate with a local instance of the II provider. (Note: Mainnet Internet Identities only work with the mainnet canister. They will not work when running locally in an emulated environment.)
 
 Install Rust (Even though this project does not use Rust, the II project does.)
@@ -105,11 +96,12 @@ git clone https://github.com/dfinity/internet-identity.git
 cd internet-identity
 ```
 
-Install npm packages and ensure the project builds.
+Install npm packages.
 ```bash
 npm ci
-npm run build
 ```
+
+👉 IMPORTANT: If you are using a mac with an M1 or M2 Apple Silicon processor, stop and (follow these instructions)[https://forum.dfinity.org/t/local-development-with-internet-identity-on-m1-apple-processor/10981/12] before continuing.
 
 Start a local instance of the Internet Computer blockchain.
 (Use a separate dedicated terminal tab or window in the same directory. On macOS, you can use ⌘+t to open a new tab.)
@@ -151,11 +143,6 @@ If you are running a local II provider, update the II_PROVIDER_URL setting as fo
 II_PROVIDER_URL="http://<id of your local internet identity canister>.localhost:8000/#authorize"
 ```
 Tip: If you paste the above URL in your browser, it should serve up the welcome page from the "internet_identity" canister.
-
-If you skipped the II provider setup, update the II_PROVIDER_USE_FAKE setting as follow:
-```bash
-II_PROVIDER_USE_FAKE="true"
-```
 
 Create, Build and Install Canisters
 ```bash

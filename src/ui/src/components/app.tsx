@@ -7,10 +7,29 @@ import { InternetIdentityProvider } from '../context/internet-identity';
 export default function App () {
     const [dateTime, setDateTime] = useState<string>("");
 
+    const getTime = async() => {
+        console.log('getTime');
+        let dt = await Api.getTime();
+        setDateTime(dt);    
+    };
+
+    const setData = async() => {
+        console.log('setData');
+        await Api.setData("browser date: " + Date.now());
+    };
+
+    const getData = async () => {
+        console.log('getData');
+        const data = await Api.getData();
+        console.log(data);
+    };
+
     useEffect(() => {
-        const init = async () => {
-            let dt = await Api.getDateTime();
-            setDateTime(dt);
+
+        const init = async() => {
+            await getTime();
+            await setData();
+            await getData();
         };
         init();
        
