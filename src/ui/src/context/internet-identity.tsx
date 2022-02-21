@@ -46,13 +46,13 @@ const useICIIAuth = ({
   authClientOptions: { onError, onSuccess, ...authClientOptions } = {},
   fakeProvider = false
 }: UseInternetIdentityProps = {}) => {
-  const [authClient, setAuthClient] = React.useState<AuthClient | null>(null)
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
-  const [error, setError] = React.useState<string | null>(null)
+  const [authClient, setAuthClient] = React.useState<AuthClient | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const identityProvider = (
     authClientOptions.identityProvider || 'https://identity.ic0.app/#authorize'
-  ).toString()
+  ).toString();
 
   const createAuthClient = React.useCallback(async () => {
     var authClient: React.SetStateAction<AuthClient | null>;
@@ -62,31 +62,31 @@ const useICIIAuth = ({
       authClient = await AuthClient.create({});
     }
     setAuthClient(authClient)
-  }, [])
+  }, []);
 
   React.useEffect(() => {
-    createAuthClient()
-  }, [createAuthClient])
+    createAuthClient();
+  }, [createAuthClient]);
 
   const setAuthStatus = React.useCallback(async (authClient) => {
     if (authClient) {
-      const isAuthenticated = await authClient.isAuthenticated()
-      return setIsAuthenticated(isAuthenticated)
+      const isAuthenticated = await authClient.isAuthenticated();
+      return setIsAuthenticated(isAuthenticated);
     }
-    return setIsAuthenticated(false)
-  }, [])
+    return setIsAuthenticated(false);
+  }, []);
 
   React.useEffect(() => {
-    authClient && setAuthStatus(authClient)
-  }, [authClient, setAuthStatus])
+    authClient && setAuthStatus(authClient);
+  }, [authClient, setAuthStatus]);
 
   const handleOnSuccess = React.useCallback(
     (authClient) => {
-      setIsAuthenticated(true)
-      onSuccess && onSuccess(authClient.getIdentity())
+      setIsAuthenticated(true);
+      onSuccess && onSuccess(authClient.getIdentity());
     },
     [onSuccess]
-  )
+  );
 
   const handleOnError = React.useCallback(
     (error) => {
@@ -94,7 +94,7 @@ const useICIIAuth = ({
       onError && onError(error)
     },
     [onError]
-  )
+  );
 
   const authenticate = React.useCallback(async () => {
     if (authClient) {
@@ -116,7 +116,7 @@ const useICIIAuth = ({
     handleOnError,
     handleOnSuccess,
     identityProvider
-  ])
+  ]);
 
   const signout = React.useCallback(async () => {
     if (authClient) {
@@ -125,7 +125,9 @@ const useICIIAuth = ({
       }
       setIsAuthenticated(false);
     }
-  }, [authClient])
+  }, [authClient]);
+
+  console.log('identity', authClient?.getIdentity().getPrincipal().toString());
 
   return {
     error,
@@ -135,13 +137,13 @@ const useICIIAuth = ({
     identity: authClient ? authClient.getIdentity() : null,
     authenticate,
     signout
-  }
-}
+  };
+};
 
 interface InternetIdentityProviderProps {
   authClientOptions?: AuthClientOptions,
   fakeProvider?: boolean
-}
+};
 
 export const InternetIdentityProvider: React.FC<InternetIdentityProviderProps> =
   ({ children, authClientOptions = {}, fakeProvider = false }) => {
@@ -154,5 +156,5 @@ export const InternetIdentityProvider: React.FC<InternetIdentityProviderProps> =
   }
 
 export const useInternetIdentity = () => {
-  return useContext(InternetIdentityContext)
-}
+  return useContext(InternetIdentityContext);
+};

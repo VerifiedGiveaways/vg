@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useInternetIdentity } from '../context/internet-identity';
 
 export default function Welcome() {
-    const { authenticate, signout, isAuthenticated, identity } = useInternetIdentity();
+    const { isAuthenticated, identity } = useInternetIdentity();
     
     return (
         <>

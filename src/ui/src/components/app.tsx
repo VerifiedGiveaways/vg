@@ -1,46 +1,38 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import * as Api from '../api';
 import { Outlet, Link } from 'react-router-dom';
 import { InternetIdentityProvider } from '../context/internet-identity';
+import { Identity } from '@dfinity/agent';
 
 export default function App () {
     const [dateTime, setDateTime] = useState<string>("");
 
-    const getTime = async() => {
-        console.log('getTime');
-        let dt = await Api.getTime();
-        setDateTime(dt);    
-    };
+    const onLoginSuccess = async(identity: Identity) => {
+        console.log("Successful Login", {identity});
 
-    const setData = async() => {
-        console.log('setData');
-        await Api.setData("browser date: " + Date.now());
-    };
+        //anonymous
+        console.log('calling getTime');
+        let dt = await Api.getTime(identity);
+        setDateTime(dt);
 
-    const getData = async () => {
-        console.log('getData');
-        const data = await Api.getData();
-        console.log(data);
-    };
+        console.log('identity', identity);
 
-    useEffect(() => {
+        //authenticated
+        if (identity) {
+            const data = Date.now().toString();
+            await Api.setData(data, identity);
+            console.log('setData', data);
 
-        const init = async() => {
-            await getTime();
-            await setData();
-            await getData();
+            const fetchedData = await Api.getData(identity);
+            console.log('getData', fetchedData);
         };
-        init();
-       
-    }, []);
+    };
 
     return (           
         <InternetIdentityProvider
             authClientOptions={{
-                onSuccess: (identity) => console.log(
-                    "Successful Login", {identity}
-                ),
+                onSuccess: onLoginSuccess,
                 identityProvider: `${process.env.II_PROVIDER_URL}`,
             }}
             fakeProvider={process.env.II_PROVIDER_USE_FAKE == 'true'}

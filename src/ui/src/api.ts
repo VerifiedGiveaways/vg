@@ -1,16 +1,26 @@
-import { app } from '../../../.dfx/local/canisters/app';
+import { ActorSubclass, Identity, AnonymousIdentity } from "@dfinity/agent";
+import { canisterId, createActor } from '../../../.dfx/local/canisters/app';
+import { _SERVICE } from "../../../.dfx/local/canisters/app/app.did";
 import { epochTimeToShortDate, epochTimeToShortTime } from './utils';
 
-export async function setData(data: string) : Promise<void> {
-    await app.setData(data);    
+// the identity must be explicity passed to the actor reference
+// or the canister function's caller will be the anonymous identity
+function getActor(identity?: Identity) : ActorSubclass<_SERVICE> {
+    return createActor(canisterId as string, {
+        agentOptions: { identity: identity || new AnonymousIdentity() }
+    });
 };
 
-export async function getData() : Promise<string> {
-    const result = await app.getData();
+export async function setData(data: string, identity: Identity) : Promise<void> {
+    await getActor(identity).setData(data);
+};
+
+export async function getData(identity: Identity) : Promise<string> {
+    const result = await getActor(identity).getData();
     return result;
 };
 
-export async function getTime() : Promise<string> {
-    const result = await app.getTime();
+export async function getTime(identity?: Identity) : Promise<string> {
+    const result = await getActor(identity).getTime();
     return epochTimeToShortDate(result) + " " + epochTimeToShortTime(result);
 };
