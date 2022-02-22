@@ -1,62 +1,75 @@
-import * as React from 'react';
-import { useState } from 'react';
-import * as Api from '../api';
-import { Outlet, Link } from 'react-router-dom';
-import { InternetIdentityProvider } from '../context/internet-identity';
-import { Identity } from '@dfinity/agent';
+import React, { useEffect, useState } from "react";
+import { Outlet } from "react-router";
+import { Link } from "react-router-dom";
+import { useStore } from "../store/useStore";
 
-export default function App () {
-    const [dateTime, setDateTime] = useState<string>("");
+export default function App() {
+  const {
+    getServerTime: getTime,
+    getData,
+    setData,
+    identity,
+    serverTime,
+    data,
+  } = useStore((state) => ({
+    getServerTime: state.getServerTime,
+    getData: state.getData,
+    setData: state.setData,
+    identity: state.identity,
+    serverTime: state.serverTime,
+    data: state.data,
+  }));
 
-    const onLoginSuccess = async(identity: Identity) => {
-        console.log("Successful Login", {identity});
+  useEffect(() => {
+    const init = async () => {
+      // anonymous
+      console.log("calling getTime");
+      let dt = await getTime();
 
-        //anonymous
-        console.log('calling getTime');
-        let dt = await Api.getTime(identity);
-        setDateTime(dt);
+      // authenticated
+      if (identity) {
+        const now = Date.now().toString();
+        await setData(now);
+        console.log("setData", now);
 
-        console.log('identity', identity);
-
-        //authenticated
-        if (identity) {
-            const data = Date.now().toString();
-            await Api.setData(data, identity);
-            console.log('setData', data);
-
-            const fetchedData = await Api.getData(identity);
-            console.log('getData', fetchedData);
-        };
+        await getData();
+        console.log("getData", data);
+      }
     };
 
-    return (           
-        <InternetIdentityProvider
-            authClientOptions={{
-                onSuccess: onLoginSuccess,
-                identityProvider: `${process.env.II_PROVIDER_URL}`,
-            }}
-            fakeProvider={process.env.II_PROVIDER_USE_FAKE == 'true'}
-        >
-            <header>
-                <h1>Verified Giveaways</h1>
-            </header>
-            <div className="layout-center">
-                <main className="layout-main">
-                    <Outlet/>
-                </main>
-                <nav className="layout-nav">
-                    <ul>
-                        <li><Link to="/login">Login</Link></li>
-                        <li><Link to="/welcome">Welcome</Link></li>
-                        <li><Link to="/host">Host</Link></li>
-                        <li><Link to="/participant">Participant</Link></li>
-                    </ul>
-                </nav>
-                {/* <aside className="layout-aside"></aside> */}
-            </div>
-            <footer>
-                <div style={{textAlign: "center"}}>{dateTime}</div>
-            </footer>
-        </InternetIdentityProvider>
-    );
-};
+    init();
+  }, []);
+
+  return (
+    <>
+      <header>
+        <h1>Verified Giveaways</h1>
+      </header>
+      <div className="layout-center">
+        <main className="layout-main">
+          <Outlet />
+        </main>
+        <nav className="layout-nav">
+          <ul>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/welcome">Welcome</Link>
+            </li>
+            <li>
+              <Link to="/host">Host</Link>
+            </li>
+            <li>
+              <Link to="/participant">Participant</Link>
+            </li>
+          </ul>
+        </nav>
+        {/* <aside className="layout-aside"></aside> */}
+      </div>
+      <footer>
+        <div style={{ textAlign: "center" }}>Server Time: {serverTime}</div>
+      </footer>
+    </>
+  );
+}
