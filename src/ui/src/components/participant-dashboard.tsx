@@ -1,18 +1,21 @@
-import * as React from 'react';
-import { useInternetIdentity } from '../context/internet-identity';
+import * as React from "react";
+import { useStore } from "../store/useStore";
 
 export default function ParticipantDashboard() {
-  const { isAuthenticated, identity } = useInternetIdentity();
+  const identity = useStore((state) => state.identity);
 
   return (
     <>
       <h2>Participant Dashboard</h2>
 
-      {isAuthenticated ?
-                <div>Authenticated Principal: { identity?.getPrincipal().toString() || "???" }</div>
-                :
-                <div>Anonymous User</div>
-            }
+      {identity ? (
+        <div>
+          Authenticated Principal:
+          {identity?.getPrincipal().toString() || "???"}
+        </div>
+      ) : (
+        <div>Anonymous User</div>
+      )}
     </>
   );
 }

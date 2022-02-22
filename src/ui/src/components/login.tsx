@@ -1,27 +1,32 @@
-import * as React from 'react';
-import { useInternetIdentity } from '../context/internet-identity';
+import * as React from "react";
+import { useStore } from "../store/useStore";
 
 const Login = () => {
-    const { authenticate, signout, isAuthenticated, identity } = useInternetIdentity();
+  const identity = useStore((state) => state.identity);
+  const login = useStore((state) => state.login);
+  const logout = useStore((state) => state.logout);
 
-    return (
-        <>
-            <h2>Log In/Out</h2>
-            <div>
-                <button onClick={isAuthenticated ? signout : authenticate}>
-                    {isAuthenticated ? 'Logout' : 'Login with Internet Identity'}
-                </button>
-            </div>
-            
-            <br/>
+  return (
+    <>
+      <h2>Log In/Out</h2>
+      <div>
+        <button onClick={identity ? logout : login}>
+          {identity ? "Logout" : "Login with Internet Identity"}
+        </button>
+      </div>
 
-            {isAuthenticated ?
-                <div>Authenticated Principal: { identity?.getPrincipal().toString() || "???" }</div>
-                :
-                <div>Anonymous User</div>
-            }
-        </>
-    );
-  };
-  
-  export default Login;
+      <br />
+
+      {identity ? (
+        <div>
+          Authenticated Principal:{" "}
+          {identity?.getPrincipal().toString() || "???"}
+        </div>
+      ) : (
+        <div>Anonymous User</div>
+      )}
+    </>
+  );
+};
+
+export default Login;

@@ -1,18 +1,21 @@
-import * as React from 'react';
-import { useInternetIdentity } from '../context/internet-identity';
+import * as React from "react";
+import { useStore } from "../store/useStore";
 
 export default function Welcome() {
-    const { isAuthenticated, identity } = useInternetIdentity();
-    
-    return (
-        <>
-            <h2>Welcome</h2>
+  const identity = useStore((state) => state.identity);
 
-            {isAuthenticated ?
-                <div>Authenticated Principal: { identity?.getPrincipal().toString() || "???" }</div>
-                :
-                <div>Anonymous User</div>
-            }
-        </>
-    );
-};
+  return (
+    <>
+      <h2>Welcome</h2>
+
+      {identity ? (
+        <div>
+          Authenticated Principal:
+          {identity?.getPrincipal().toString() || "???"}
+        </div>
+      ) : (
+        <div>Anonymous User</div>
+      )}
+    </>
+  );
+}
