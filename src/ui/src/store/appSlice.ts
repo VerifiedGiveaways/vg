@@ -18,9 +18,11 @@ function getActor(): ActorSubclass<_SERVICE> {
 export interface AppSlice {
   readonly data: string | undefined;
   readonly serverTime: string | undefined;
+  readonly appPrincipalId: string | undefined;
   setData: (data: string) => Promise<void>;
   getData: () => Promise<void>;
   getServerTime: () => Promise<void>;
+  getAppPrincipalId: () => Promise<void>;
 }
 
 // proxies calls to the app canister and caches the results
@@ -31,6 +33,7 @@ const createAppSlice: StateCreator<AppSlice> | StoreApi<AppSlice> = (
 ) => ({
   data: undefined,
   serverTime: undefined,
+  appPrincipalId: undefined,
 
   setData: async (data: string): Promise<void> => {
     await getActor().setData(data);
@@ -46,6 +49,11 @@ const createAppSlice: StateCreator<AppSlice> | StoreApi<AppSlice> = (
     const serverTime =
       epochTimeToShortDate(epochTime) + " " + epochTimeToShortTime(epochTime);
     set({ serverTime });
+  },
+
+  getAppPrincipalId: async (): Promise<void> => {
+    const myPrincipalId = await getActor().whoAmI();
+    set({ appPrincipalId: myPrincipalId });
   },
 });
 

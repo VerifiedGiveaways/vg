@@ -27,4 +27,8 @@ actor App {
 
         Utils.getEpochTime();
     };
+
+    public shared query ({ caller }) func whoAmI() : async Text {
+        Principal.toText(caller)
+    };
 };
